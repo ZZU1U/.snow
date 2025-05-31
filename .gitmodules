@@ -1,0 +1,3 @@
+[submodule "apps/nixCats"]
+	path = apps/nixCats
+	url = git@github.com:ZZU1U/nixCats.git
