@@ -4,6 +4,10 @@
   # and from https://github.com/dustinlyons/nixos-config/
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -13,33 +17,37 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     nixCats.url = "github:ZZU1U/nixCats";
 
-    # nur = {
-    #   url = "github:nix-community/NUR";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, darwin, home-manager, nur, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, darwin, home-manager, nur, ... }@inputs:
     let
-      # nurpkgs = import (builtins.fetchTarball {
-      #   url = "https://github.com/nix-community/NUR/archive/main.tar.gz"; 
-      #   sha256="1a3in8q90d59vfpdjy422xqdgzvxr01h14n4kclfxyvvdsy2swbj";
-      # }) {};
-
       nixpkgsConfig = {
         allowUnfree = true;
         allowUnsupportedSystem = false;
         packageOverrides = pkgs: {
+          nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
+            inherit pkgs;
+          };
         };
       };
 
-      unstable = import inputs.nixpkgs-unstable { inherit system; };
       overlays = with inputs; []; # [nurpkgs.repos.ben.overlays.bar]; #[ feovim.overlay krewfile.overlay ];
       user = "dudu";
       hostname = "dadoot";
@@ -51,12 +59,15 @@
       darwinConfigurations.${hostname} = darwin.lib.darwinSystem {
         inherit system;
         # makes all inputs availble in imported files
-        specialArgs = { inherit inputs; inherit unstable; };
+        specialArgs = { inherit inputs; };
         modules = [
           inputs.nix-index-database.darwinModules.nix-index
           inputs.nixCats.nixosModules.default
+          inputs.nix-homebrew.darwinModules.nix-homebrew
+          nur.modules.darwin.default
+
           ./hosts/darwin
-          ({ pkgs, inputs, ... }: {
+          ({ pkgs, ... }: {
             nixpkgs.config = nixpkgsConfig;
             nixpkgs.overlays = overlays;
 
@@ -79,11 +90,17 @@
               localHostName = hostname;
             };
 
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = user;
+              autoMigrate = true;
+            };
+
             nix = {
               # enable flakes per default
-              package = pkgs.nixVersions.stable;
               enable = false;
-              # gc.automatic = false;
+              package = pkgs.nixVersions.stable;
               settings = {
                 allowed-users = [ user ];
                 trusted-users = [ "root" user ];
@@ -96,16 +113,17 @@
               };
             };
           })
+
           home-manager.darwinModules.home-manager
           {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
               backupFileExtension = "before-nix-darwin";
+
               # makes all inputs available in imported files for hm
               extraSpecialArgs = {
                 inherit inputs;
-                inherit unstable;
                 inherit user;
               };
               users.${user} = { ... }:

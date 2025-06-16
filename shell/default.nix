@@ -114,7 +114,7 @@
       # python3
       # #poetry # python tools # TODO tests failing
       # rustup # rust
-      # uv # workspace management tool
+      uv # workspace management tool
       just
       #
       # ## node

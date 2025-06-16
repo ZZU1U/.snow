@@ -1,5 +1,7 @@
+alias s := switch
 alias r := switch
 alias g := garbage
+alias u := update
 
 # rebuild and switch config
 switch:
@@ -8,3 +10,7 @@ switch:
 # cleanup garbage
 garbage:
   nix-store --gc
+
+# update flake inputs
+update:
+  nix flake update

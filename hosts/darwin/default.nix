@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, nix-darwin, ... }: {
   imports = [
     # ./homebrew.nix
     ./fonts.nix
@@ -31,6 +31,14 @@
     keycastr
   ];
 
+  # programs.nh = {
+  #     enable = true;
+  #     clean.enable = true;
+  #     clean.extraArgs = "--keep-since 4d --keep 3";
+  #     flake = "/Users/dudu/.snow";
+  # };
+  #
+
   # programs = { zsh.enable = true; };
 
   # services = {
@@ -56,13 +64,13 @@
 
   # security.pam.services.sudo_local.touchIdAuth = true;
 
-  # system = {
+  system = {
   #   keyboard = {
   #     enableKeyMapping = true;
   #     remapCapsLockToControl = true;
   #   };
   #
-  #   defaults = {
+    defaults = {
   #     ".GlobalPreferences"."com.apple.mouse.scaling" = 4.0;
   #     spaces.spans-displays = false;
   #     universalaccess = {
@@ -71,21 +79,21 @@
   #       #reduceTransparency = true;
   #     };
   #
-  #     dock = {
-  #       autohide = true;
-  #       autohide-delay = 0.0;
-  #       autohide-time-modifier = 0.0;
-  #       orientation = "bottom";
-  #       dashboard-in-overlay = true;
-  #       largesize = 85;
-  #       tilesize = 50;
-  #       magnification = true;
-  #       launchanim = false;
-  #       mru-spaces = false;
-  #       show-recents = false;
-  #       show-process-indicators = false;
-  #       static-only = true;
-  #     };
+        dock = {
+            autohide = true;
+            autohide-delay = 0.0;
+            autohide-time-modifier = 0.0;
+            orientation = "bottom";
+            dashboard-in-overlay = true;
+            largesize = 85;
+            tilesize = 16;
+            magnification = true;
+            launchanim = false;
+            mru-spaces = false;
+            show-recents = false;
+            show-process-indicators = true;
+            static-only = true;
+        };
   #
   #     finder = {
   #       AppleShowAllExtensions = true;
@@ -111,6 +119,6 @@
   #       "com.apple.sound.beep.feedback" = 0;
   #       "com.apple.trackpad.scaling" = 2.0;
   #     };
-  #   };
-  # };
+    };
+  };
 }
