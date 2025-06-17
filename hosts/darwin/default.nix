@@ -1,35 +1,88 @@
-{ pkgs, nix-darwin, ... }: {
+{ pkgs, flakeSelf, inputs, ... }:
+let
+  user = "dudu";
+  hostname = "dadoot";
+  system = "aarch64-darwin";
+in {
   imports = [
+    inputs.nix-index-database.darwinModules.nix-index
+    inputs.nixCats.nixosModules.default
+    inputs.nix-homebrew.darwinModules.nix-homebrew
+    inputs.home-manager.darwinModules.home-manager
+    inputs.nur.modules.darwin.default
     # ./homebrew.nix
+    ./macos_defaults.nix
     ./fonts.nix
     ./skhd.nix
     ./yabai.nix
     ./somevim.nix
   ];
 
-  environment = {
-    variables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
+  system = {
+    primaryUser = user;
+    stateVersion = 6;
+    configurationRevision = flakeSelf.rev or flakeSelf.dirtyRev or null;
+  };
+
+  users.users.${user} = {
+    home = "/Users/${user}";
+    shell = pkgs.zsh;
+    uid=501;
+  };
+  users.knownUsers = [user];
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "before-nix-darwin";
+
+    extraSpecialArgs = {
+      inherit inputs;
+      inherit user;
+    };
+    users.${user} = { ... }: {
+      imports = [
+        ../../home-manager/dudu
+      ];
+      home.stateVersion = "25.11";
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    yabai
-    skhd
-    iina
-    qbittorrent
-    # anytype
-    anki-bin
-    # obs-studio
-    #skimpdf
-    sioyek
-    utm
-    wireshark
-    # soulseekqt
-    gimp
-    keycastr
-  ];
+  networking = {
+    computerName = hostname;
+    hostName = hostname;
+    localHostName = hostname;
+  };
+
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    user = user;
+    autoMigrate = true;
+  };
+
+  nix = {
+# enable flakes per default
+    enable = false;
+    package = pkgs.nixVersions.stable;
+    settings = {
+      allowed-users = [ user ];
+      trusted-users = [ "root" user ];
+      experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
+      substituters = [ "https://nix-community.cachix.org" "https://cache.nixos.org" ];
+# produces linking issues when updating on macOS
+# https://github.com/NixOS/nix/issues/7273
+      auto-optimise-store = false;
+    };
+  };
+
+  environment = {
+    variables = {
+      EDITOR = "nv";
+      VISUAL = "nv";
+    };
+  };
 
   # programs.nh = {
   #     enable = true;
@@ -38,17 +91,6 @@
   #     flake = "/Users/dudu/.snow";
   # };
   #
-
-  # programs = { zsh.enable = true; };
-
-  # services = {
-  #   # FIXME: driver issues
-  #   karabiner-elements.enable = false;
-  #   sketchybar = {
-  #     enable = false;
-  #     extraPackages = with pkgs; [ jq gh ];
-  #   };
-  # };
 
   # networking = {
   #   knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
@@ -61,64 +103,4 @@
   #     sketchybar-app-font
   #   ];
   # };
-
-  # security.pam.services.sudo_local.touchIdAuth = true;
-
-  system = {
-  #   keyboard = {
-  #     enableKeyMapping = true;
-  #     remapCapsLockToControl = true;
-  #   };
-  #
-    defaults = {
-  #     ".GlobalPreferences"."com.apple.mouse.scaling" = 4.0;
-  #     spaces.spans-displays = false;
-  #     universalaccess = {
-  #       # FIXME: cannot write universal access
-  #       #reduceMotion = true;
-  #       #reduceTransparency = true;
-  #     };
-  #
-        dock = {
-            autohide = true;
-            autohide-delay = 0.0;
-            autohide-time-modifier = 0.0;
-            orientation = "bottom";
-            dashboard-in-overlay = true;
-            largesize = 85;
-            tilesize = 16;
-            magnification = true;
-            launchanim = false;
-            mru-spaces = false;
-            show-recents = false;
-            show-process-indicators = true;
-            static-only = true;
-        };
-  #
-  #     finder = {
-  #       AppleShowAllExtensions = true;
-  #       AppleShowAllFiles = true;
-  #       CreateDesktop = false;
-  #       FXDefaultSearchScope = "SCcf"; # current folder
-  #       QuitMenuItem = true;
-  #     };
-  #
-  #     NSGlobalDomain = {
-  #       _HIHideMenuBar = false;
-  #       AppleFontSmoothing = 0;
-  #       AppleInterfaceStyle = "Dark";
-  #       AppleKeyboardUIMode = 3;
-  #       AppleScrollerPagingBehavior = true;
-  #       AppleShowAllExtensions = true;
-  #       AppleShowAllFiles = true;
-  #       InitialKeyRepeat = 10;
-  #       KeyRepeat = 2;
-  #       NSAutomaticSpellingCorrectionEnabled = false;
-  #       NSAutomaticWindowAnimationsEnabled = false;
-  #       NSWindowResizeTime = 0.0;
-  #       "com.apple.sound.beep.feedback" = 0;
-  #       "com.apple.trackpad.scaling" = 2.0;
-  #     };
-    };
-  };
 }

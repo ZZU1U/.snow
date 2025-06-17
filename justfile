@@ -5,7 +5,7 @@ alias u := update
 
 # rebuild and switch config
 switch:
-  darwin-rebuild switch --flake .
+  darwin-rebuild switch --flake . --show-trace
 
 # cleanup garbage
 garbage:

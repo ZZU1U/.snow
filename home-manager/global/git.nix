@@ -1,10 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    python3
-  ];
-  # imports = [ ./gitignore_global.nix ];
   programs.git = {
     enable = true;
     userName = "zzu1u";
