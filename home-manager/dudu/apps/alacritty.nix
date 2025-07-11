@@ -5,7 +5,6 @@
       window = {
         opacity = 0.95;
         dynamic_padding = true;
-        decorations = "none";
         padding = {
           x = 0;
           y = 0;

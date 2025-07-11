@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.skhd = {
-    enable = true;
+    enable = true;  # Permissions break sometimes (like yabai)
     skhdConfig = ''
       alt + shift - return : open -na /Users/dudu/Applications/Alacritty.app
 

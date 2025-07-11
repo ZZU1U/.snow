@@ -5,8 +5,8 @@
   ];
 
   home.packages = with pkgs; [
-    yabai
-    skhd
+    # yabai
+    # skhd
 
     iina
     qbittorrent

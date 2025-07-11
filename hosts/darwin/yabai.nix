@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.yabai = {
-    enable = true;
+    enable = true;  # I am tired of issues with permissions
     enableScriptingAddition = true;
     config = {
         # external_bar = "all:39:0";

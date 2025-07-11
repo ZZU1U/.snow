@@ -24,11 +24,15 @@
       zmodload zsh/complist
       compinit
       _comp_options+=(globdots)		# Include hidden files.
+
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*'
+      zstyle ':completion:*' menu select
     '';
 # fpath+=/Applications/OrbStack.app/Contents/MacOS/../Resources/completions/zsh% 
 
     shellAliases = {
       ls = "ls --color=auto";
+      em = "emacs -nw";
     };
   };
 }

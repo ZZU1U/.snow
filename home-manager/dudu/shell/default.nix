@@ -1,11 +1,13 @@
 { pkgs, ... }: {
   imports = [
     ./direnv.nix
-    # ./neovim.nix
+    ./taskwarrior.nix
   ];
 
   home = {
     packages = with pkgs; [
+      # ok look, i can explain. i'm using it just to test some plugins ok?
+      neovim
       # net tools
       nmap
 
@@ -66,7 +68,7 @@
       g = "git";
       d = "docker";
       dc = "docker-compose";
-      t = "tmux";
+      t = "tmux attach || tmux";
     };
 
     sessionPath = [
@@ -78,22 +80,22 @@
   programs = {
     # shell integrations are enabled by default
     bat.enable = true; # pretty cat
-      lazygit.enable = true; # git tui
-      yazi.enable = true; # file browser
-      btop.enable = true; # htop alternative
+    lazygit.enable = true; # git tui
+    yazi.enable = true; # file browser
+    btop.enable = true; # htop alternative
 
-      fzf = {
-        enable = true;
-        enableZshIntegration = true;
-        defaultCommand =
-          "fd --type f --hidden --follow --exclude .git --exclude .vim --exclude .cache --exclude vendor --exclude node_modules";
-        defaultOptions = [
-          "--inline-info"
-            "--height 40%"
-            "--tmux bottom,40%"
-            "--layout reverse"
-        ];
-      };
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      defaultCommand =
+        "fd --type f --hidden --follow --exclude .git --exclude .vim --exclude .cache --exclude vendor --exclude node_modules";
+      defaultOptions = [
+        "--inline-info"
+          "--height 40%"
+          "--tmux top,40%"
+          "--layout reverse"
+      ];
+    };
   };
 
 }

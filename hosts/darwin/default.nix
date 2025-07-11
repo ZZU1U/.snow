@@ -10,12 +10,11 @@ in {
     inputs.nix-homebrew.darwinModules.nix-homebrew
     inputs.home-manager.darwinModules.home-manager
     inputs.nur.modules.darwin.default
-    # ./homebrew.nix
     ./macos_defaults.nix
     ./fonts.nix
-    ./skhd.nix
-    ./yabai.nix
-    ./somevim.nix
+    # ./skhd.nix
+    # ./yabai.nix
+    ./nixCats.nix
   ];
 
   system = {
@@ -79,8 +78,8 @@ in {
 
   environment = {
     variables = {
-      EDITOR = "nv";
-      VISUAL = "nv";
+      EDITOR = "vim";
+      VISUAL = "vim";
     };
   };
 
@@ -89,18 +88,5 @@ in {
   #     clean.enable = true;
   #     clean.extraArgs = "--keep-since 4d --keep 3";
   #     flake = "/Users/dudu/.snow";
-  # };
-  #
-
-  # networking = {
-  #   knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
-  #   dns = [ "192.168.178.12" "9.9.9.9" "1.1.1.1" "8.8.8.8" ];
-  # };
-
-  # fonts = {
-  #   packages = with pkgs; [
-  #     nerd-fonts.jetbrains-mono
-  #     sketchybar-app-font
-  #   ];
   # };
 }

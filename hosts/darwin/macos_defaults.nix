@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   system = {
-#   keyboard = {
+    keyboard = {
 #     enableKeyMapping = true;
-#     remapCapsLockToControl = true;
-#   };
+      #remapCapsLockToControl = true;  # This needs ^^^ to be made but idk
+    };
 #
     defaults = {
 #     ".GlobalPreferences"."com.apple.mouse.scaling" = 4.0;
@@ -27,9 +27,14 @@
         mru-spaces = false;
         show-recents = false;
         show-process-indicators = true;
-        persistent-others = [
-          "~/Downloads"
-        ];
+        # persistent-apps = [
+        #   {
+        #     folder = "/Users/dudu/Downloads";
+        #   }
+        # ];
+        # persistent-others = [
+        #   "/Users/dudu/Downloads"
+        # ];
       };
 #
 #     finder = {

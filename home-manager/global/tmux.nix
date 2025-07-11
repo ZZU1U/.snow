@@ -1,4 +1,10 @@
 { config, pkgs, ... }: {
+  home.packages = [
+    (pkgs.writeShellScriptBin "rebugu_cmus_status" (builtins.readFile ./scripts/cmus_status.sh))
+    (pkgs.writeShellScriptBin "rebugu_op" (builtins.readFile ./scripts/op.sh))
+    (pkgs.writeShellScriptBin "rebugu_od" (builtins.readFile ./scripts/od.sh))
+  ];
+  
   programs.tmux = {
     enable = true;
     escapeTime = 5;
@@ -34,7 +40,8 @@
       set -g status-position top
       set -g status-justify absolute-centre
       set -g status-style 'fg=color8 bg=default'
-      set -g status-right \'\'
+      set -g status-right "#(rebugu_cmus_status) | %H:%M %d-%b"
+      set -g status-interval 5
       # set -g status-left '#{pane_current_path}'
       # set -g status-right \'\'
       set -g status-left '#{b:pane_current_path}'
@@ -42,7 +49,7 @@
       set -g status-left-style 'fg=color8'
       set -g status-right-length 0
       set -g status-left-length 100
-      setw -g window-status-current-style 'fg=colour1 bg=default bold'
+      setw -g window-status-current-style 'fg=#0099D7 bg=default bold'
       setw -g window-status-current-format '#I:#W '
       setw -g window-status-style 'fg=color8' # dim mb
 
@@ -57,7 +64,7 @@
       bind G new-window -n 'lazygit' lazygit
       bind-key b set-option status
       # Custom scripts
-      bind-key f run-shell "tmux neww ~/.config/scripts/od.sh"
+      bind-key f run-shell "tmux neww rebugu_od"
     '';
   };
 }
