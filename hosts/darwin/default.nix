@@ -12,8 +12,9 @@ in {
     inputs.nur.modules.darwin.default
     ./macos_defaults.nix
     ./fonts.nix
-    # ./skhd.nix
-    # ./yabai.nix
+    ./skhd.nix
+    ./yabai.nix
+    ./borders.nix
     ./nixCats.nix
   ];
 

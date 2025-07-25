@@ -1,10 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, stillPkgs, ... }: {
   services.yabai = {
-    enable = true;  # I am tired of issues with permissions
+    enable = true;
+    package = stillPkgs.yabai;
     enableScriptingAddition = true;
     config = {
-        # external_bar = "all:39:0";
-      layout = "bsp";
+      # external_bar = "all:39:0";
+      layout = "float";
       # auto_balance = "off";
 
       # mouse_modifier = "alt";
@@ -14,11 +15,11 @@
       # mouse_action1 = "move";
 
       # gaps
-      # top_padding = 15;
-      # bottom_padding = 15;
-      # left_padding = 15;
-      # right_padding = 15;
-      # window_gap = 15;
+      top_padding = 7;
+      bottom_padding = 7;
+      left_padding = 7;
+      right_padding = 7;
+      window_gap = 7;
     };
     extraConfig = ''
       sudo yabai --load-sa

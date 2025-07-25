@@ -4,5 +4,6 @@
     ./git.nix
     ./tmux.nix
     ./ghostty.nix
+    #./mpd.nix
   ];
 }

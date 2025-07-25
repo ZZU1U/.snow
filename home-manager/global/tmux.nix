@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  home.packages = [
+  home.packages = [  # Setup local scripts to be global-like-packages
     (pkgs.writeShellScriptBin "rebugu_cmus_status" (builtins.readFile ./scripts/cmus_status.sh))
     (pkgs.writeShellScriptBin "rebugu_op" (builtins.readFile ./scripts/op.sh))
     (pkgs.writeShellScriptBin "rebugu_od" (builtins.readFile ./scripts/od.sh))
@@ -65,6 +65,7 @@
       bind-key b set-option status
       # Custom scripts
       bind-key f run-shell "tmux neww rebugu_od"
+      bind-key o run-shell "tmux neww rebugu_op"
     '';
   };
 }

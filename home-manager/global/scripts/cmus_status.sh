@@ -17,7 +17,7 @@ if [[ "$state" == "playing" || "$state" == "paused" ]]; then
         state="-"
     fi
 
-    echo "($state) $artist - $title"
+    echo "($state) $title"
 elif [[ "$state" == "stopped" ]]; then
     echo "[-]"
 else
