@@ -1,8 +1,7 @@
 { config, pkgs, ... }: {
   home.packages = [  # Setup local scripts to be global-like-packages
-    (pkgs.writeShellScriptBin "rebugu_cmus_status" (builtins.readFile ./scripts/cmus_status.sh))
-    (pkgs.writeShellScriptBin "rebugu_op" (builtins.readFile ./scripts/op.sh))
-    (pkgs.writeShellScriptBin "rebugu_od" (builtins.readFile ./scripts/od.sh))
+    (pkgs.writeShellScriptBin "tmux-od" (builtins.readFile ./scripts/open-dir.sh))
+    (pkgs.writeShellScriptBin "hop" (builtins.readFile ./scripts/tmux-hop.sh))
   ];
   
   programs.tmux = {
@@ -29,6 +28,8 @@
       bind r source-file ~/.config/tmux/tmux.conf
       set -g base-index 1
 
+      setw -g mouse on
+
       # set-option remain-on-exit on
       set -g renumber-windows on   # renumber all windows when any window is closed
       set -g escape-time 0         # zero-out escape time delay
@@ -40,12 +41,9 @@
       set -g status-position top
       set -g status-justify absolute-centre
       set -g status-style 'fg=color8 bg=default'
-      set -g status-right "#(rebugu_cmus_status) | %H:%M %d-%b"
       set -g status-interval 5
-      # set -g status-left '#{pane_current_path}'
-      # set -g status-right \'\'
-      set -g status-left '#{b:pane_current_path}'
-      # set-option -g automatic-rename on
+      set -g status-right '#(rebugu_cmus_status) | %H:%M %d-%b'
+      set -g status-left '#{b:pane_current_path} #S'
       set -g status-left-style 'fg=color8'
       set -g status-right-length 0
       set -g status-left-length 100
@@ -63,9 +61,7 @@
       # Scripts that are baked into tmux
       bind G new-window -n 'lazygit' lazygit
       bind-key b set-option status
-      # Custom scripts
       bind-key f run-shell "tmux neww rebugu_od"
-      bind-key o run-shell "tmux neww rebugu_op"
     '';
   };
 }

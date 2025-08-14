@@ -14,3 +14,7 @@ garbage:
 # update flake inputs
 update:
   nix flake update
+
+# cleanup permissions
+acc-perm:
+  sudo tccutil reset Accessibility

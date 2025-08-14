@@ -2,12 +2,11 @@
   imports = [
     ./direnv.nix
     ./taskwarrior.nix
+    ./mpd.nix
   ];
 
   home = {
     packages = with pkgs; [
-      # ok look, i can explain. i'm using it just to test some plugins ok?
-      neovim
       # net tools
       nmap
 
@@ -16,7 +15,6 @@
       curl
       fd
       ripgrep # fast search
-
       gitAndTools.delta # pretty diff tool
       gh # github cli tool
       ffmpeg # video editing and cutting
@@ -33,14 +31,40 @@
       # programming
       uv # workspace management tool
       just
+      cmake
+      gcc
+      python310  # sometimes help
+      cargo
+      rustc
+
+      ## lsps
+      lua-language-server
+      rust-analyzer
 
       # stuff
       pfetch
+      ollama
+      skim
+
+      # writing
       typst
+      tinymist
+      ispell
+
+      # passwords
+      pass
+      passExtensions.pass-import
+
+      # music player
+      cmus
+      rmpc
+      mpc
+      # playerctl  # marked as broken as of 08/14/25
     ];
 
     shellAliases = {
       # builtins
+      ls = "ls --color";
       size = "du -sh";
       cp = "cp -i";
       mkdir = "mkdir -p";

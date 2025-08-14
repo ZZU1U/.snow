@@ -1,7 +1,7 @@
 { pkgs, ... } : {
   imports = [
     ./firefox.nix
-    ./alacritty.nix
+    #./alacritty.nix
   ];
 
   home.packages = with pkgs; [
@@ -14,7 +14,7 @@
     # obs-studio
     sioyek
     utm
-    wireshark
+    #wireshark
     # soulseekqt
     gimp
     keycastr

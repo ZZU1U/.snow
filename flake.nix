@@ -19,7 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixCats.url = "github:ZZU1U/nixCats";
+    #nixCats.url = "github:ZZU1U/nixCats";
 
     agenix = {
       url = "github:ryantm/agenix";

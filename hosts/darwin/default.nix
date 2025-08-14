@@ -6,7 +6,7 @@ let
 in {
   imports = [
     inputs.nix-index-database.darwinModules.nix-index
-    inputs.nixCats.nixosModules.default
+    # inputs.nixCats.nixosModules.default
     inputs.nix-homebrew.darwinModules.nix-homebrew
     inputs.home-manager.darwinModules.home-manager
     inputs.nur.modules.darwin.default
@@ -15,7 +15,7 @@ in {
     ./skhd.nix
     ./yabai.nix
     ./borders.nix
-    ./nixCats.nix
+    #./nixCats.nix
   ];
 
   system = {
@@ -82,6 +82,9 @@ in {
       EDITOR = "vim";
       VISUAL = "vim";
     };
+    systemPackages = with pkgs; [
+      #raycast
+    ];
   };
 
   # programs.nh = {

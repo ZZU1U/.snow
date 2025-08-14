@@ -8,7 +8,7 @@ else
   selected=$(
     fd . ~/documents/projects ~/ ~/documents/notes/EDU ~/documents/notes ~/documents/ --min-depth 1 --max-depth 2 --type d |
       sed "s|^$HOME/||" |
-      fzf
+      sk
   )
   # Add home path back
   if [[ -n "$selected" ]]; then
