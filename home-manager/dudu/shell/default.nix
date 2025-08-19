@@ -21,7 +21,8 @@
       httpie # awesome alternative to curl
       gnupg # gpg
       gping # ping with a graph
-      comma # run nix binaries on demand
+      # comma # run nix binaries on demand
+      mosh # better ssh
 
       # gnu binaries
       coreutils-full # multiple tools
@@ -37,6 +38,8 @@
       cargo
       rustc
 
+      jujutsu  # git future
+
       ## lsps
       lua-language-server
       rust-analyzer
@@ -44,16 +47,15 @@
       # stuff
       pfetch
       ollama
-      skim
 
       # writing
       typst
       tinymist
       ispell
 
-      # passwords
-      pass
-      passExtensions.pass-import
+      # passwords (don't really use it anyway)
+      # pass
+      # passExtensions.pass-import
 
       # music player
       cmus
@@ -105,21 +107,11 @@
     # shell integrations are enabled by default
     bat.enable = true; # pretty cat
     lazygit.enable = true; # git tui
-    yazi.enable = true; # file browser
     btop.enable = true; # htop alternative
 
-    fzf = {
+    skim = {
       enable = true;
       enableZshIntegration = true;
-      defaultCommand =
-        "fd --type f --hidden --follow --exclude .git --exclude .vim --exclude .cache --exclude vendor --exclude node_modules";
-      defaultOptions = [
-        "--inline-info"
-          "--height 40%"
-          "--tmux top,40%"
-          "--layout reverse"
-      ];
     };
   };
-
 }

@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
   home.packages = [  # Setup local scripts to be global-like-packages
-    (pkgs.writeShellScriptBin "tmux-od" (builtins.readFile ./scripts/open-dir.sh))
-    (pkgs.writeShellScriptBin "hop" (builtins.readFile ./scripts/tmux-hop.sh))
+    (pkgs.writeShellScriptBin "tmux-hop" (builtins.readFile ./scripts/tmux-hop.sh))
+    (pkgs.writeShellScriptBin "tmux-sk" (builtins.readFile ./scripts/tmux-sk.sh))
   ];
   
   programs.tmux = {
@@ -19,49 +19,32 @@
       tmuxPlugins.prefix-highlight
     ];
     extraConfig = /*tmux*/''
-      set -s escape-time 0
-      set-option -sa terminal-features ',xterm-256color:RGB'
-      set-option -g allow-passthrough on
-      unbind C-b
-      set-option -g prefix C-SPACE
-      bind-key C-SPACE send-prefix
-      bind r source-file ~/.config/tmux/tmux.conf
-      set -g base-index 1
-
-      setw -g mouse on
-
-      # set-option remain-on-exit on
-      set -g renumber-windows on   # renumber all windows when any window is closed
-      set -g escape-time 0         # zero-out escape time delay
-      set-window-option -g mode-keys vi
-      bind -T copy-mode-vi v send-keys -X begin-selection
-      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'pbcopy'
-
       # style
+      # set -g status-right-length 0
+      # set -g status-left-length 100
+
+      set -a terminal-features ',xterm-256color:RGB'
+      setw -g mouse on  # mostly for resizing though
+      set -g allow-passthrough on
+      set -g prefix C-SPACE
+      set -g base-index 1
+      set -g renumber-windows on   
+      set -g mode-keys vi
       set -g status-position top
       set -g status-justify absolute-centre
-      set -g status-style 'fg=color8 bg=default'
-      set -g status-interval 5
-      set -g status-right '#(rebugu_cmus_status) | %H:%M %d-%b'
-      set -g status-left '#{b:pane_current_path} #S'
-      set -g status-left-style 'fg=color8'
-      set -g status-right-length 0
-      set -g status-left-length 100
-      setw -g window-status-current-style 'fg=#0099D7 bg=default bold'
-      setw -g window-status-current-format '#I:#W '
-      setw -g window-status-style 'fg=color8' # dim mb
+      set -g status-style "bg=default"
+      set -g window-status-current-style "fg=blue bold"
+      set -g status-right ""
+      set -g status-left "#S"
+      set -g escape-time 0
 
-      # vim-like pane switching
-      bind -r ^ last-window
-      bind -r k select-pane -U
-      bind -r j select-pane -D
-      bind -r h select-pane -L
-      bind -r l select-pane -R
-
-      # Scripts that are baked into tmux
-      bind G new-window -n 'lazygit' lazygit
-      bind-key b set-option status
-      bind-key f run-shell "tmux neww rebugu_od"
+      bind b set -g status
+      bind f run-shell "tmux neww tmux-hop"
+      bind N run-shell "tmux-hop ~/documents/notez"
+      bind P run-shell "tmux-hop ~/documents/projects"
+      bind D run-shell "tmux-hop ~/.snow"
+      bind H run-shell "tmux-hop ~"
+      bind G neww -n "lazygit" lazygit
     '';
   };
 }

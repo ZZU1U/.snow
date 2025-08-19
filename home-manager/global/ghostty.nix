@@ -8,6 +8,7 @@
       font-size = 14;
       macos-icon = "retro";
       macos-icon-frame = "plastic";
+      background-opacity = 0.8;
     };
   };
 }

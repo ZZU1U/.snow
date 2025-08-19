@@ -62,11 +62,11 @@ in {
   };
 
   nix = {
-# enable flakes per default
+    # enable flakes per default
     enable = false;
     package = pkgs.nixVersions.stable;
     settings = {
-      allowed-users = [ user ];
+      allowed-users = [ "*" ];
       trusted-users = [ "root" user ];
       experimental-features = [ "nix-command" "flakes" ];
       warn-dirty = false;

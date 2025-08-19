@@ -11,6 +11,10 @@ switch:
 garbage:
   nix-store --gc
 
+# delete old generations data
+clean-gen:
+  sudo nix-collect-garbage -d; nix-collect-garbage -d
+
 # update flake inputs
 update:
   nix flake update

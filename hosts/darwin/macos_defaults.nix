@@ -1,8 +1,8 @@
 { config, pkgs, ... }: {
   system = {
     keyboard = {
-#     enableKeyMapping = true;
-      #remapCapsLockToControl = true;  # This needs ^^^ to be made but idk
+      remapCapsLockToControl = true;
+      enableKeyMapping = true;
     };
 #
     defaults = {
@@ -18,32 +18,41 @@
         autohide = true;
         autohide-delay = 0.0;
         autohide-time-modifier = 0.0;
+
         orientation = "bottom";
+
         dashboard-in-overlay = true;
-        largesize = 85;
+
         tilesize = 16;
+        largesize = 106;
         magnification = true;
+        scroll-to-open = true;  # trying new feature
+        static-only = false;
+
         launchanim = false;
+
         mru-spaces = false;
+
         show-recents = false;
-        show-process-indicators = true;
-        # persistent-apps = [
-        #   {
-        #     folder = "/Users/dudu/Downloads";
-        #   }
-        # ];
-        # persistent-others = [
-        #   "/Users/dudu/Downloads"
-        # ];
+
+        persistent-apps = [
+        ];
+
+        persistent-others = [
+          "/Users/dudu/Downloads"
+        ];
       };
-#
-#     finder = {
-#       AppleShowAllExtensions = true;
-#       AppleShowAllFiles = true;
-#       CreateDesktop = false;
-#       FXDefaultSearchScope = "SCcf"; # current folder
-#       QuitMenuItem = true;
-#     };
+
+      finder = {
+        AppleShowAllExtensions = true;
+        FXDefaultSearchScope = "SCcf"; # current folder
+        NewWindowTarget = "Home";
+        ShowPathbar = true;
+        ShowStatusBar = true;
+      };
+
+      hitoolbox.AppleFnUsageType = "Change Input Source";
+      trackpad.ActuationStrength = 0;
 #
 #     NSGlobalDomain = {
 #       _HIHideMenuBar = false;
@@ -63,6 +72,7 @@
 #     };
     };
   };
+
 
   # local = {
   #   dock.entries = [

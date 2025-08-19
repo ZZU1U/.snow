@@ -4,6 +4,6 @@
     ./git.nix
     ./tmux.nix
     ./ghostty.nix
-    #./mpd.nix
+    # ./rio.nix  # broken as of 08/14/25
   ];
 }

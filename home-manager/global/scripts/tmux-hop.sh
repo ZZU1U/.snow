@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
 
-# Get list of existing tmux sessions
-sessions=$(tmux list-sessions -F "#{session_name} [#{session_windows}] #{session_path}" 2>/dev/null)
+DIRS=(
+    "$HOME/documents"
+    "$HOME"
+    "$HOME/documents/notez"
+    "$HOME/documents/projects"
+)
 
-# If no sessions exist, create a new one
-if [ -z "$sessions" ]; then
-  tmux new-session
-  exit 0
-fi
-
-# Add "Create new session" option to the list
-sessions_with_new="Create new session\n$sessions"
-
-# Use fzf to select a session
-selected=$(echo -e "$sessions_with_new" | sk)
-
-selected_session=$(echo "$selected" | cut -d ' ' -f 1)
-
-# Handle the selection
-if [ -z "$selected" ]; then
-  echo "No session selected"
-  exit 1
-elif [ "$selected" = "Create new session" ]; then
-  tmux new-session
+if [[ $# -eq 1 ]]; then
+    selected=$1
 else
-  tmux attach-session -t "$selected_session"
+    selected=$(fd "${DIRS[@]}" --type=dir --max-depth=3 --full-path \
+        | sed "s|^$HOME/||" \
+        | sk --margin 10% --color="bw")
+    [[ $selected ]] && selected="$HOME/$selected"
 fi
+
+[[ ! $selected ]] && exit 0
+
+selected_name=$(basename "$selected" | tr . _)
+if ! tmux has-session -t "$selected_name"; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+    tmux select-window -t "$selected_name:1"
+fi
+
+tmux switch-client -t "$selected_name"

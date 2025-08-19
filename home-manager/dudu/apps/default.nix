@@ -1,7 +1,7 @@
 { pkgs, ... } : {
   imports = [
     ./firefox.nix
-    #./alacritty.nix
+    ./alacritty.nix
   ];
 
   home.packages = with pkgs; [

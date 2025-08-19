@@ -1,6 +1,6 @@
 { stillPkgs, ... }: {
   services.jankyborders = {
-    enable = true;
+    enable = false;
     package = stillPkgs.jankyborders;
   };
 }
