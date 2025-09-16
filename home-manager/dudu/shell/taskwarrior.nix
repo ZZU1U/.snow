@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home.packages = [ pkgs.taskwarrior-tui ];
+  home.packages = [ pkgs.taskwarrior-tui pkgs.timewarrior ];
 
   programs.taskwarrior = {
     enable = true;

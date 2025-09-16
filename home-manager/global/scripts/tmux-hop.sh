@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 DIRS=(
-    "$HOME/documents"
     "$HOME"
+    "$HOME/documents"
     "$HOME/documents/notez"
     "$HOME/documents/projects"
 )

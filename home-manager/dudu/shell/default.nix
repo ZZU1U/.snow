@@ -37,16 +37,20 @@
       python310  # sometimes help
       cargo
       rustc
+      pnpm
 
       jujutsu  # git future
 
       ## lsps
       lua-language-server
       rust-analyzer
+      nil
 
       # stuff
       pfetch
       ollama
+      ansilove  # completely useless but fun
+      neofetch  # ayo, it's depr
 
       # writing
       typst
@@ -111,7 +115,8 @@
 
     skim = {
       enable = true;
-      enableZshIntegration = true;
+      #enableZshIntegration = true;
+      enableFishIntegration = true;
     };
   };
 }

@@ -1,4 +1,9 @@
 { config, pkgs, ... }: {
+  launchd.user.agents = {
+      yabai.serviceConfig.EnvironmentVariables.SHELL = "/bin/dash";
+      skhd.serviceConfig.EnvironmentVariables.SHELL = "/bin/dash"; # Dash bc bash compatible but faster
+  };
+
   system = {
     keyboard = {
       remapCapsLockToControl = true;

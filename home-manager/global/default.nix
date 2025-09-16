@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./zsh.nix
+    #./fish.nix
     ./git.nix
     ./tmux.nix
     ./ghostty.nix

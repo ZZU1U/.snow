@@ -5,7 +5,7 @@ alias u := update
 
 # rebuild and switch config
 switch:
-  darwin-rebuild switch --flake . --show-trace
+  sudo darwin-rebuild switch --flake . --show-trace
 
 # cleanup garbage
 garbage:
@@ -22,3 +22,9 @@ update:
 # cleanup permissions
 acc-perm:
   sudo tccutil reset Accessibility
+
+# list previous generations
+hist:
+    sudo darwin-rebuild --list-generations
+
+

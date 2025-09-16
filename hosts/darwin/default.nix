@@ -15,6 +15,7 @@ in {
     ./skhd.nix
     ./yabai.nix
     ./borders.nix
+    ./fish.nix
     #./nixCats.nix
   ];
 
@@ -23,13 +24,6 @@ in {
     stateVersion = 6;
     configurationRevision = flakeSelf.rev or flakeSelf.dirtyRev or null;
   };
-
-  users.users.${user} = {
-    home = "/Users/${user}";
-    shell = pkgs.zsh;
-    uid=501;
-  };
-  users.knownUsers = [user];
 
   home-manager = {
     useGlobalPkgs = true;
@@ -42,11 +36,18 @@ in {
     };
     users.${user} = { ... }: {
       imports = [
-        ../../home-manager/dudu
+        ../../home-manager/${user}
       ];
       home.stateVersion = "25.11";
     };
   };
+
+  users.users.${user} = {
+    home = "/Users/${user}";
+    shell = pkgs.fish;
+    uid=501;
+  };
+  users.knownUsers = [user];
 
   networking = {
     computerName = hostname;
@@ -79,8 +80,14 @@ in {
 
   environment = {
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
+    shellAliases = {
+      do = "$EDITOR $HOME/documents/notez/do";
+      cp = "cp -i";
+      mkdir = "mkdir -p";
+      t = "tmux attach || tmux";
     };
     systemPackages = with pkgs; [
       #raycast
