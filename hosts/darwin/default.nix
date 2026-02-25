@@ -1,22 +1,19 @@
 { pkgs, flakeSelf, inputs, ... }:
 let
-  user = "dudu";
-  hostname = "dadoot";
+  user = "tsui";
+  hostname = "tekonaide";
   system = "aarch64-darwin";
 in {
   imports = [
     inputs.nix-index-database.darwinModules.nix-index
-    # inputs.nixCats.nixosModules.default
     inputs.nix-homebrew.darwinModules.nix-homebrew
     inputs.home-manager.darwinModules.home-manager
     inputs.nur.modules.darwin.default
-    ./macos_defaults.nix
-    ./fonts.nix
-    ./skhd.nix
-    ./yabai.nix
-    ./borders.nix
-    ./fish.nix
-    #./nixCats.nix
+    ./apps
+    ./looks
+    ./services
+    ./shell
+    ./system
   ];
 
   system = {
@@ -57,9 +54,9 @@ in {
 
   nix-homebrew = {
     enable = true;
-    enableRosetta = true;
+    #enableRosetta = true;
     user = user;
-    autoMigrate = true;
+    #autoMigrate = true;
   };
 
   nix = {
@@ -72,8 +69,6 @@ in {
       experimental-features = [ "nix-command" "flakes" ];
       warn-dirty = false;
       substituters = [ "https://nix-community.cachix.org" "https://cache.nixos.org" ];
-# produces linking issues when updating on macOS
-# https://github.com/NixOS/nix/issues/7273
       auto-optimise-store = false;
     };
   };
@@ -83,21 +78,5 @@ in {
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
-    shellAliases = {
-      do = "$EDITOR $HOME/documents/notez/do";
-      cp = "cp -i";
-      mkdir = "mkdir -p";
-      t = "tmux attach || tmux";
-    };
-    systemPackages = with pkgs; [
-      #raycast
-    ];
   };
-
-  # programs.nh = {
-  #     enable = true;
-  #     clean.enable = true;
-  #     clean.extraArgs = "--keep-since 4d --keep 3";
-  #     flake = "/Users/dudu/.snow";
-  # };
 }

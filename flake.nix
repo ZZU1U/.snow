@@ -63,7 +63,7 @@
   in {
     #formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
 
-    darwinConfigurations.dadoot = darwin.lib.darwinSystem {
+    darwinConfigurations.tekonaide = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = { inherit inputs; flakeSelf = self; stillPkgs = stillPkgs; };
       modules = [

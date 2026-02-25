@@ -4,7 +4,7 @@
     (pkgs.writeShellScriptBin "tmux-sk" (builtins.readFile ./scripts/tmux-sk.sh))
     (pkgs.writeShellScriptBin "tmux-timer" (builtins.readFile ./scripts/time.sh))
   ];
-  
+
   programs.tmux = {
     enable = true;
     escapeTime = 5;
@@ -35,7 +35,8 @@
       set -g status-justify absolute-centre
       set -g status-style "bg=default"
       set -g window-status-current-style "fg=blue bold"
-      # set -g status-right "#(rmpc-status)"
+      #set -g status-right "#(rmpc-status)"
+      set -g status-right "yo"
       set -g status-left "#S"
       set -g escape-time 0
 

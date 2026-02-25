@@ -15,7 +15,6 @@
       curl
       fd
       ripgrep # fast search
-      gitAndTools.delta # pretty diff tool
       gh # github cli tool
       ffmpeg # video editing and cutting
       httpie # awesome alternative to curl
@@ -35,22 +34,23 @@
       cmake
       gcc
       python310  # sometimes help
-      cargo
-      rustc
+      # cargo
+      # rustc
       pnpm
 
       jujutsu  # git future
 
       ## lsps
       lua-language-server
-      rust-analyzer
+      # rust-analyzer
       nil
+      #ccls
 
       # stuff
       pfetch
-      ollama
+      #ollama
       ansilove  # completely useless but fun
-      neofetch  # ayo, it's depr
+      #neofetch  # ayo, it's depr
 
       # writing
       typst
@@ -95,10 +95,8 @@
       venv = "python3 -m venv";
 
       # programs
-      g = "git";
-      d = "docker";
-      dc = "docker-compose";
       t = "tmux attach || tmux";
+      do = "$EDITOR $HOME/documents/notez/do";
     };
 
     sessionPath = [

@@ -1,36 +1,21 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   programs.git = {
     enable = true;
-    userName = "zzu1u";
-    userEmail = "gl.anohin@yandex.ru";
     lfs = {
       enable = true;
       skipSmudge = true;
     };
-    delta = {
-      enable = true;
-      options = {
-        decorations = {
-          commit-decoration-style = "blue ol";
-          commit-style = "raw";
-          file-style = "omit";
-          hunk-header-decoration-style = "blue box";
-          hunk-header-file-style = "red";
-          hunk-header-line-number-style = "#067a00";
-          hunk-header-style = "file line-number syntax";
-        };
-        features = "decorations";
-        whitespace-error-style = "22 reverse";
-      };
-    };
-    extraConfig = {
+    settings = {
       core = {
         fscache = true;
         packedGitLimit = "512m";
         packedGitWindowSize = "512m";
         excludesfile = "${config.home.homeDirectory}/.config/git/ignore";
+      };
+
+      user = {
+        email = "gl.anohin@yandex.ru";
+        name = "zzu1u";
       };
 
       pull = {
@@ -45,6 +30,24 @@
         autoSetupRemote = true;
       };
     };
+  };
+
+  programs. delta = {
+    enable = true;
+    options = {
+      decorations = {
+        commit-decoration-style = "blue ol";
+        commit-style = "raw";
+        file-style = "omit";
+        hunk-header-decoration-style = "blue box";
+        hunk-header-file-style = "red";
+        hunk-header-line-number-style = "#067a00";
+        hunk-header-style = "file line-number syntax";
+      };
+      features = "decorations";
+      whitespace-error-style = "22 reverse";
+    };
+    enableGitIntegration = true;
   };
 
   programs.git.ignores = [

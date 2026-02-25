@@ -31,7 +31,7 @@
         tilesize = 16;
         largesize = 106;
         magnification = true;
-        scroll-to-open = true;  # trying new feature
+        #scroll-to-open = true;  # trying new feature
         static-only = false;
 
         launchanim = false;
@@ -44,7 +44,7 @@
         ];
 
         persistent-others = [
-          "/Users/dudu/Downloads"
+          "/Users/tsui/Downloads"
         ];
       };
 

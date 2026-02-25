@@ -1,6 +1,6 @@
 { ... }: {
   services.mpd = {
-    enable = true;
+    enable = false;
     musicDirectory = "~/music";
     extraConfig = ''
     audio_output {

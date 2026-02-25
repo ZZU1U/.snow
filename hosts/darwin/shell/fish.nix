@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs.fishPlugins; [
     done
-    sponge
+    #sponge
   ];
 
   programs.fish = {

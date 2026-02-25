@@ -1,6 +1,6 @@
 { pkgs, stillPkgs, ... }: {
   services.yabai = {
-    enable = true;
+    enable = false;
     package = stillPkgs.yabai;
     enableScriptingAddition = true;
     config = {

@@ -1,6 +1,6 @@
 { pkgs, stillPkgs, ... }: {
   services.skhd = {
-    enable = true;
+    enable = false;
     package = stillPkgs.skhd;
     skhdConfig = ''
     alt + shift - return : open -na /Users/dudu/Applications/Home\ Manager\ Apps/Ghostty.app

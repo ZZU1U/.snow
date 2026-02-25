@@ -63,5 +63,5 @@
       };
     };
   };
-  home.file."Applications/Alacritty.app".source = "${pkgs.alacritty}/Applications/Alacritty.app";
+  # home.file."Applications/Alacritty.app".source = "${pkgs.alacritty}/Applications/Alacritty.app";
 }
