@@ -5,6 +5,7 @@ let
   system = "aarch64-darwin";
 in {
   imports = [
+    inputs.determinate.darwinModules.default
     inputs.nix-index-database.darwinModules.nix-index
     inputs.nix-homebrew.darwinModules.nix-homebrew
     inputs.home-manager.darwinModules.home-manager
@@ -59,18 +60,24 @@ in {
     #autoMigrate = true;
   };
 
-  nix = {
-    # enable flakes per default
-    enable = false;
-    package = pkgs.nixVersions.stable;
-    settings = {
-      allowed-users = [ "*" ];
-      trusted-users = [ "root" user ];
-      experimental-features = [ "nix-command" "flakes" ];
-      warn-dirty = false;
-      substituters = [ "https://nix-community.cachix.org" "https://cache.nixos.org" ];
-      auto-optimise-store = false;
+  # Determinate Nix configuration
+  determinateNix = {
+    enable = true;
+    # Custom settings for additional caches and optimizations
+    customSettings = {
+      # Add your custom substituters here if needed
+      # trusted-substituters = "https://your-cache.example.com";
+      # trusted-public-keys = "your-cache.example.com:key";
     };
+    # Configure Determinate Nixd for enhanced performance
+    determinateNixd = {
+      garbageCollector.strategy = "automatic";
+    };
+  };
+
+  nix = {
+    # Let Determinate Nix handle Nix configuration
+    enable = false;
   };
 
   environment = {

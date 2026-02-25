@@ -40,9 +40,13 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    };
   };
 
-  outputs = { self, nixpkgs, darwin, home-manager, utils, agenix, nur, ... }@inputs:
+  outputs = { self, nixpkgs, darwin, home-manager, utils, agenix, nur, determinate, ... }@inputs:
   let
     stillPkgs = import (builtins.fetchTarball {
       url = "https://github.com/NixOS/nixpkgs/archive/fabee8e1bcf70fee0cd7dbfdbd2f04ff43e780c9.tar.gz";
@@ -72,16 +76,16 @@
       ];
     };
 
-    nixosConfigurations = {
-      yoshi = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/yoshi
-          utils.nixosModules.autoGenFromInputs
-          home-manager.nixosModules.home-manager
-          agenix.nixosModules.age
-        ];
-      };
-    };
+    # nixosConfigurations = {
+    #   yoshi = nixpkgs.lib.nixosSystem {
+    #     system = "x86_64-linux";
+    #     modules = [
+    #       ./hosts/yoshi
+    #       utils.nixosModules.autoGenFromInputs
+    #       home-manager.nixosModules.home-manager
+    #       agenix.nixosModules.age
+    #     ];
+    #   };
+    # };
   };
 }

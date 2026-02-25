@@ -1,5 +1,4 @@
 { ... } :{
-  imports = [
-    ./macos_defaults.nix
-  ];
+  # System-level configurations
+  # Add system-specific modules here
 }
